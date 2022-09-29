@@ -1,4 +1,10 @@
+import logging
+
 from flask import Flask, request, render_template, send_from_directory
+
+from loader.loader1 import loader_blueprint
+from main.main1 import home_blueprint
+
 # from functions import ...
 
 POST_PATH = "posts.json"
@@ -7,24 +13,10 @@ UPLOAD_FOLDER = "uploads/images"
 app = Flask(__name__)
 
 
-@app.route("/")
-def page_index():
-    pass
+app.register_blueprint(home_blueprint)
+app.register_blueprint(loader_blueprint)
 
-
-@app.route("/list")
-def page_tag():
-    pass
-
-
-@app.route("/post", methods=["GET", "POST"])
-def page_post_form():
-    pass
-
-
-@app.route("/post", methods=["POST"])
-def page_post_upload():
-    pass
+logging.basicConfig(filename="basic.log", level=logging.INFO)
 
 
 @app.route("/uploads/<path:path>")
